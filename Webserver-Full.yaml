@@ -1,0 +1,58 @@
+---
+- hosts: all
+  tasks:
+  - name: Ensure that IIS is installed
+    win_feature:
+      name: "Web-Server"
+      state: present
+      restart: no
+      include_sub_features: no
+      include_management_tools: no
+  
+  - name: 
+    win_feature:
+      name: Web-Http-Tracing
+      state: present
+
+  - name: 
+    win_feature:
+      name: Web-Stat-Compression
+      state: present
+
+  - name: 
+    win_feature:
+      name: Web-Filtering
+      state: present
+
+  - name: 
+    win_feature:
+      name: Web-Windows-Auth
+      state: present
+
+  - name: 
+    win_feature:
+      name: Web-Net-Ext45
+      state: present
+
+  - name: 
+    win_feature:
+      name: Web-ISAPI-Ext
+      state: present
+
+  - name: 
+    win_feature:
+      name: Web-Dir-Browsing
+      state: present
+
+  - name: 
+    win_feature:
+      name: Web-ISAPI-Filter
+      state: present
+
+  - name: Copy Splunk Install Files
+    win_copy:
+      src: '\\MIL-DSCAP-SU01\DSC Resources\Installs\Splunk'
+      dest: 'D:\Temp\SplunkInstall'
+ 
+  - name: run simple script
+    script: D:\Temp\SplunkInstall\msi_install_x64_local.bat 
