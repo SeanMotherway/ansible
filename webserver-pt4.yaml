@@ -1,0 +1,40 @@
+---
+- hosts: webservers
+  tasks:
+  - name: Update Registry HideFileExtensionsForKnownFileTypes
+    ansible.windows.win_regedit:
+      path: HKLM:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced\Folder\HideFileExt
+      name: DefaultValue
+      data: 0
+      type: dword
+      
+  - name: Update Registry MaxFieldLength
+    ansible.windows.win_regedit:
+      path: HKLM:\Software\System\CurrentControlSet\Services\HTTP\Parameters
+      name: MaxFieldLength
+      data: 65534
+      type: dword    
+      
+  - name: Update Registry MaxRequestBytes
+    ansible.windows.win_regedit:
+      path: HKLM:\System\CurrentControlSet\Services\HTTP\Parameters
+      name: MaxRequestBytes
+      data: 16777216
+      type: dword
+  
+  - name: Create Logs Share
+    ansible.windows.win_share:
+      name: Logs
+      description: Logs Share
+      path: 'D:\\Logs'
+      full: Administrators
+      read: 'us\IT Application Development'
+       
+  - name: Remove Default Web Site
+    community.windows.win_iis_website:
+      name: "Default Web Site"
+      state: absent
+      
+  - name: Reboot Windows after 2 Mintutes
+    ansible.windows.win_reboot:
+      reboot_timeout: 120

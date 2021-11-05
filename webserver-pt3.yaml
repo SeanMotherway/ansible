@@ -1,0 +1,22 @@
+---
+- hosts: webservers
+  tasks:
+  - name: Install Splunk Forwarder
+    win_package:
+      path: D:\Media\Splunk\splunkforwarder-8.0.1.msi
+      product_id: '{40D16570-AD95-40F7-A6A8-B466BEE2C0C1}'
+      arguments: /l*v D:\Temp\Splunkforwarder-8.0.1.msi.log INSTALLDIR="D:\Program Files\SplunkUniversalForwarder" LOGON_USERNAME=us\svcsplunkforwarder LOGON_PASSWORD=seD3rEG9dq DEPLOYMENT_SERVER=mil-splap-sp03:8089 AGREETOLICENSE=Yes SET_ADMIN_USER=1 /quiet
+      
+  - name: Install NetCoreWindowsHosting
+    win_package:
+      path: D:\Media\NetCoreWindowsHosting\dotnet-hosting-5.0.9-win.exe
+      product_id: {8313C056-53A4-4845-B03E-5C27165DC2F1}
+      arguments: /q /norestart
+      state: present
+
+  - name: Install IISRewriteModule
+    win_package:
+      path: D:\Media\IISURLRewriteModule\rewrite_amd64.msi
+      product_id: {08F0318A-D113-4CF0-993E-50F191D397AD}
+      arguments: /quiet
+      state: present

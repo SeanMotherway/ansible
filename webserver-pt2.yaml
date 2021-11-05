@@ -1,0 +1,67 @@
+---
+- hosts: webservers
+  tasks:
+  - name: Installing IIS Feature Web-Http-Tracing
+    win_feature:
+      name: Web-Http-Tracing
+      state: present
+
+  - name: Installing IIS Feature Web-Stat-Compression
+    win_feature:
+      name: Web-Stat-Compression
+      state: present
+
+  - name: Installing IIS Feature Web-Filtering
+    win_feature:
+      name: Web-Filtering
+      state: present
+
+  - name: Installing IIS Feature Web-Windows-Auth
+    win_feature:
+      name: Web-Windows-Auth
+      state: present
+
+  - name: Installing IIS Feature Web-Net-Ext45
+    win_feature:
+      name: Web-Net-Ext45
+      state: present
+
+  - name: Installing IIS Feature Web-ISAPI-Ext
+    win_feature:
+      name: Web-ISAPI-Ext
+      state: present
+
+  - name: Installing IIS Feature Web-Dir-Browsing
+    win_feature:
+      name: Web-Dir-Browsing
+      state: present
+
+  - name: Installing IIS Feature Web-ISAPI-Filter
+    win_feature: 
+      name: Web-ISAPI-Filter
+      state: present
+      
+  - name: Create D:\Temp Directory
+    ansible.windows.win_file:
+      path: D:\Temp
+      state: directory
+      
+  - name: Create D:\Logs Directory
+    ansible.windows.win_file:
+      path: D:\Logs
+      state: directory
+ 
+  - name: Create D:\Logs\HTTP Directory
+    ansible.windows.win_file:
+      path: D:\Logs\HTTP
+      state: directory
+ 
+  - name: Create D:\Logs\Applications Directory
+    ansible.windows.win_file:
+      path: D:\Logs\Applications
+      state: directory
+
+  - name: Create F:\Web Directory
+    ansible.windows.win_file:
+      path: F:\Web
+      state: directory
