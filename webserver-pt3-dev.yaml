@@ -1,6 +1,12 @@
 ---
 - hosts: all
   tasks:
+  - name: Sync Media Folder for Installs
+    community.windows.win_robocopy:
+      src: \\us.rwbaird.com\rwb\dml\DSC
+      dest: D:\Media
+      flags: /E
+   
   - name: Install Splunk Forwarder
     win_package:
       path: D:\Media\Splunk\splunkforwarder-8.0.1.msi
